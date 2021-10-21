@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>frontpage</title>
+    <style>
+        .table-fixed tbody {
+            height: 300px;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        .table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+            display: block;
+        }
+
+        .table-fixed tbody td, .table-fixed tbody th, .table-fixed thead > tr > th {
+            float: left;
+            position: relative;
+        }
+        .nav.nav-justified > li > a {
+            position: relative;
+        }
+
+        .nav.nav-justified > li > a:hover, .nav.nav-justified > li > a:focus {
+            background-color: transparent;
+        }
+
+        .nav.nav-justified > li > a > .quote {
+            position: absolute;
+            left: 0px;
+            top: 0;
+            opacity: 0;
+            width: 30px;
+            height: 30px;
+            padding: 5px;
+            background-color: #13c0ba;
+            border-radius: 15px;
+            color: #fff;
+        }
+
+        .nav.nav-justified > li.active > a > .quote {
+            opacity: 1;
+        }
+
+        .nav.nav-justified > li > a > img {
+            box-shadow: 0 0 0 5px #13c0ba;
+        }
+
+        .nav.nav-justified > li > a > img {
+            max-width: 100%;
+            opacity: .3;
+            -webkit-transform: scale(.8,.8);
+            transform: scale(.8,.8);
+            -webkit-transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .nav.nav-justified > li.active > a > img, .nav.nav-justified > li:hover > a > img, .nav.nav-justified > li:focus > a > img {
+            opacity: 1;
+            -webkit-transform: none;
+            transform: none;
+            -webkit-transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .tab-pane .tab-inner {
+            padding: 30px 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .nav.nav-justified > li > a > .quote {
+                left: auto;
+                top: auto;
+                right: 20px;
+                bottom: 0px;
+            }
+        }
+        .footer-dark {
+            padding: 50px 0;
+            color: #f0f9ff;
+            background-color: #282d32;
+        }
+
+        .footer-dark h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .footer-dark ul {
+            padding: 0;
+            list-style: none;
+            line-height: 1.6;
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        .footer-dark ul a {
+            color: inherit;
+            text-decoration: none;
+            opacity: 0.6;
+        }
+
+        .footer-dark ul a:hover {
+            opacity: 0.8;
+        }
+
+        @media (max-width:767px) {
+            .footer-dark .item:not(.social) {
+                text-align: center;
+                padding-bottom: 20px;
+            }
+        }
+
+        .footer-dark .item.text {
+            margin-bottom: 36px;
+        }
+
+        @media (max-width:767px) {
+            .footer-dark .item.text {
+                margin-bottom: 0;
+            }
+        }
+
+        .footer-dark .item.text p {
+            opacity: 0.6;
+            margin-bottom: 0;
+        }
+
+        .footer-dark .item.social {
+            text-align: center;
+        }
+
+        @media (max-width:991px) {
+            .footer-dark .item.social {
+                text-align: center;
+                margin-top: 20px;
+            }
+        }
+
+        .footer-dark .item.social > a {
+            font-size: 20px;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            display: inline-block;
+            text-align: center;
+            border-radius: 50%;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.4);
+            margin: 0 8px;
+            color: #fff;
+            opacity: 0.75;
+        }
+
+        .footer-dark .item.social > a:hover {
+            opacity: 0.9;
+        }
+
+        .footer-dark .copyright {
+            text-align: center;
+            padding-top: 24px;
+            opacity: 0.3;
+            font-size: 13px;
+            margin-bottom: 0;
+        }
+        .header-blue {
+            background: linear-gradient(135deg, #172a74, #21a9af);
+            background-color: #184e8e;
+            padding-bottom: 80px;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        @media (min-width:768px) {
+            .header-blue {
+                padding-bottom: 120px;
+            }
+        }
+
+        .header-blue .navbar {
+            background: transparent;
+            padding-top: .75rem;
+            padding-bottom: .75rem;
+            color: #fff;
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
+        }
+
+        @media (min-width:768px) {
+            .header-blue .navbar {
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+        }
+
+        .header-blue .navbar .navbar-brand {
+            font-weight: bold;
+            color: inherit;
+        }
+
+        .header-blue .navbar .navbar-brand:hover {
+            color: #f0f0f0;
+        }
+
+        .header-blue .navbar .navbar-collapse {
+            border-top: 1px solid rgba(255,255,255,0.3);
+            margin-top: .5rem;
+        }
+
+        @media (min-width:768px) {
+            .header-blue .navbar .navbar-collapse {
+                border-color: transparent;
+                margin: 0;
+            }
+        }
+
+        .header-blue .navbar .navbar-collapse span .login {
+            color: #d9d9d9;
+            margin-right: .5rem;
+            text-decoration: none;
+        }
+
+        .header-blue .navbar .navbar-collapse span .login:hover {
+            color: #fff;
+        }
+
+        .header-blue .navbar .navbar-toggler {
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .header-blue .navbar .navbar-toggler:hover, .header-blue .navbar-toggler:focus {
+            background: none;
+        }
+
+        @media (min-width: 768px) {
+            .header-blue .navbar-nav .nav-link {
+                padding-left: .7rem;
+                padding-right: .7rem;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .header-blue .navbar-nav .nav-link {
+                padding-left: 1.2rem;
+                padding-right: 1.2rem;
+            }
+        }
+
+        .header-blue .navbar.navbar-light .navbar-nav .nav-link {
+            color: #d9d9d9;
+        }
+
+        .header-blue .navbar.navbar-light .navbar-nav .nav-link:focus, .header-blue .navbar.navbar-light .navbar-nav .nav-link:hover {
+            color: #fcfeff !important;
+            background-color: transparent;
+        }
+
+        .header-blue .navbar .navbar-nav > li > .dropdown-menu {
+            margin-top: -5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,.1);
+            background-color: #fff;
+            border-radius: 2px;
+        }
+
+        .header-blue .navbar .dropdown-menu .dropdown-item:focus, .header-blue .navbar .dropdown-menu .dropdown-item {
+            line-height: 2;
+            color: #37434d;
+        }
+
+        .header-blue .navbar .dropdown-menu .dropdown-item:focus, .header-blue .navbar .dropdown-menu .dropdown-item:hover {
+            background: #ebeff1;
+        }
+
+        .header-blue .action-button, .header-blue .action-button:not(.disabled):active {
+            border: 1px solid rgba(255,255,255,0.7);
+            border-radius: 40px;
+            color: #ebeff1;
+            box-shadow: none;
+            text-shadow: none;
+            padding: .3rem .8rem;
+            background: transparent;
+            transition: background-color 0.25s;
+            outline: none;
+        }
+
+        .header-blue .action-button:hover {
+            color: #fff;
+        }
+
+        .header-blue .navbar .form-inline label {
+            color: #d9d9d9;
+        }
+
+        .header-blue .navbar .form-inline .search-field {
+            display: inline-block;
+            width: 80%;
+            background: none;
+            border: none;
+            border-bottom: 1px solid transparent;
+            border-radius: 0;
+            color: #ccc;
+            box-shadow: none;
+            color: inherit;
+            transition: border-bottom-color 0.3s;
+        }
+
+        .header-blue .navbar .form-inline .search-field:focus {
+            border-bottom: 1px solid #ccc;
+        }
+
+        .header-blue .hero {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        @media (min-width:768px) {
+            .header-blue .hero {
+                margin-top: 60px;
+                text-align: left;
+            }
+        }
+
+        .header-blue .hero h1 {
+            color: #fff;
+            font-size: 40px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        @media (min-width:992px) {
+            .header-blue .hero h1 {
+                margin-top: 190px;
+                margin-bottom: 24px;
+                line-height: 1.2;
+            }
+        }
+
+        .header-blue .hero p {
+            color: rgba(255,255,255,0.8);
+            font-size: 20px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .header-blue .phone-holder {
+            text-align: right;
+        }
+
+        .header-blue div.iphone-mockup {
+            position: relative;
+            max-width: 300px;
+            margin: 20px;
+            display: inline-block;
+        }
+
+        .testimonials-clean {
+            color: #313437;
+            background-color: #eef4f7;
+        }
+
+        .testimonials-clean p {
+            color: #7d8285;
+        }
+
+        .testimonials-clean h2 {
+            font-weight: bold;
+            margin-bottom: 40px;
+            padding-top: 40px;
+            color: inherit;
+        }
+
+        @media (max-width:767px) {
+            .testimonials-clean h2 {
+                margin-bottom: 25px;
+                padding-top: 25px;
+                font-size: 24px;
+            }
+        }
+
+        .testimonials-clean .intro {
+            font-size: 16px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .testimonials-clean .intro p {
+            margin-bottom: 0;
+        }
+
+        .testimonials-clean .people {
+            padding: 50px 0 20px;
+        }
+
+        .testimonials-clean .item {
+            margin-bottom: 32px;
+        }
+
+        @media (min-width:768px) {
+            .testimonials-clean .item {
+                height: 220px;
+            }
+        }
+
+        .testimonials-clean .item .box {
+            padding: 30px;
+            background-color: #fff;
+            position: relative;
+        }
+
+        .testimonials-clean .item .box:after {
+            content: '';
+            position: absolute;
+            left: 30px;
+            bottom: -24px;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+            border-width: 12px 15px;
+            border-top-color: #fff;
+        }
+
+        .testimonials-clean .item .author {
+            margin-top: 28px;
+            padding-left: 25px;
+        }
+
+        .testimonials-clean .item .name {
+            font-weight: bold;
+            margin-bottom: 2px;
+            color: inherit;
+        }
+
+        .testimonials-clean .item .title {
+            font-size: 13px;
+            color: #9da9ae;
+        }
+
+        .testimonials-clean .item .description {
+            font-size: 15px;
+            margin-bottom: 0;
+        }
+
+        .testimonials-clean .item img {
+            max-width: 40px;
+            float: left;
+            margin-right: 12px;
+            margin-top: -5px;
+        }
+
+
+
+    </style>
+<!--    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.0/css/bootstrap.min.css} " />-->
+<!--    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>-->
+<!--    <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>-->
+<!--    <link th:rel="stylesheet" th:href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" />-->
+<!--    <link th:rel="stylesheet" th:href="@{assets/css/Bootstrap-4-&#45;&#45;Table-Fixed-Header.css}"/>-->
+<!--    <link th:rel="stylesheet" th:href="@{assets/css/dd-testimonials.css}" />-->
+<!--    <link th:rel="stylesheet" th:href="@{assets/css/Footer-Dark.css}" />-->
+<!--    <link th:rel="stylesheet" th:href="@{assets/css/Header-Blue.css}" />-->
+<!--    <link th:rel="stylesheet" th:href="@{assets/css/styles.css}" />-->
+<!--    <link th:rel="stylesheet" th:href="@{assets/css/Testimonials.css}" />-->
+</head>
+
+<body>
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.0/css/bootstrap.min.css} " />
+<script th:src="@{/webjars/bootstrap/5.1.0/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+<div>
+
+    <div class="header-blue">
+
+        <script th:src="@{/webjars/bootstrap/5.1.0/js/bootstrap.min.js}"></script>
+        <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+            <div class="container-fluid"><a class="navbar-brand" href="#">TaxCalculator</a><button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse"
+                     id="navcol-1">
+                    <ul class="nav navbar-nav">
+                        <li role="presentation" class="nav-item"><a class="nav-link" href="#">Schimbari recente </a></li>
+                        <li class="nav-item dropdown"><a data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle nav-link" href="#">Ajutor</a>
+                            <div role="menu" class="dropdown-menu"><a role="presentation" class="dropdown-item" href="#">First Item</a><a role="presentation" class="dropdown-item" href="#">Second Item</a><a role="presentation" class="dropdown-item" href="#">Third Item</a></div>
+                        </li>
+                    </ul>
+                    <form class="form-inline mr-auto" target="_self">
+                        <div class="form-group"><i class="fa fa-search"></i></label></div>
+                    </form><span class="navbar-text"><a class="login" href="#">Log In</a></span><a class="btn btn-light action-button" role="button" href="#">Register</a></div>
+            </div>
+        </nav>
+        <div class="container hero" style="width: 679px;">
+            <div>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a role="tab" data-toggle="tab" class="nav-link active" href="#tab-1">PFA</a></li>
+                    <li class="nav-item"><a role="tab" data-toggle="tab" class="nav-link" href="#tab-2">SRL</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="tab-1">
+                        <p>PFA taxe exemplu</p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="tab-2">
+                        <p>Content for tab 2.</p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="tab-3">
+                        <p>Content for tab 3.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive text-center">
+                <table class="table table-striped table-dark">
+                    <thead>
+                    <tr>
+                        <th>Column 1</th>
+                        <th>Column 2</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Cell 1</td>
+                        <td>Cell 2</td>
+                    </tr>
+                    <tr>
+                        <td>Cell 3</td>
+                        <td>Cell 4</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer-dark">
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-3 item">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Web design</a></li>
+                        <li><a href="#">Development</a></li>
+                        <li><a href="#">Hosting</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-md-3 item">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="#">Company</a></li>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 item text">
+                    <h3>Company Name</h3>
+                    <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
+                </div>
+                <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
+            </div>
+            <p class="copyright">Company Name © 2017</p>
+        </div>
+    </footer>
+</div>
+</body>
+
+</html>

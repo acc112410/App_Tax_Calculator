@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<style>
+    /* The container */
+    .container {
+        display: block;
+        position: relative;
+        padding-left: 120px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 12px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    /* Hide the browser's default radio button */
+    .container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    /* Create a custom radio button */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 12px;
+        width: 12px;
+        background-color: #eee;
+        border-radius: 50%;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the radio button is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the indicator (the dot/circle - hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the indicator (dot/circle) when checked */
+    .container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the indicator (dot/circle) */
+    .container .checkmark:after {
+        top: 4px;
+        left: 4px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: white;
+    }
+    .button {
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .button span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+    }
+
+    .button span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+    }
+
+    .button:hover span {
+        padding-right: 25px;
+    }
+
+    .button:hover span:after {
+        opacity: 1;
+        right: 0;
+    }
+
+    .button1 {
+        background-color: #064367;
+        border-radius: 12px;
+    }
+
+    .button2 {
+        background-color: #008CBA;
+        border-radius: 12px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
+
+<head>
+    <a th:href="@{'/index'}" class="button button1" style="vertical-align:middle"><span>Click to go to main page</span></a>
+    <table align="right">
+        <tr>
+            <th style="background-color:#5be3d9" scope="row" class="btn btn-primary btn-block">Account Settings</th>
+        </tr>
+        <td th:object="${loginEntity}">
+            <a th:href="@{'/user/edit/' + ${id}}" class="btn btn-primary btn-block">User Details</a>
+            <a th:href="@{'/logout'}" class="btn btn-primary btn-block">Logout</a>
+        </td>
+    </table>
+
+    <title>Introduceti suma</title>
+    <!-- link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" /-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color: #ededed;">
+<div style="background-color: #337ab7; height: 50px;"></div>
+<div class="container-fluid" style="margin-top: 30px;">
+
+    <div class="row col-lg-4 col-lg-offset-4"
+         style="margin-top: 40px; background-color: #fff; padding: 20px; border: solid 1px #ddd;">
+        <form autocomplete="off" action="#" th:action="@{/user/srl/saveAll}" th:object="${srlEntity}"  method="post"
+              class="form-signin" role="form">
+            <h3 class="form-signin-heading">Introduceti suma</h3>
+
+            <div class="form-group">
+                <div class="">
+                    <input type="hidden" id="id" th:field="*{loginId}" placeholder="Income" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="">
+                    <input type="number" id="income" th:field="*{income}" placeholder="Income" class="form-control"/>
+                </div>
+            </div>
+            <h3 class="form-signin-heading">Introduceti anul fiscal</h3>
+            <div class="form-group">
+                <div class="">
+                    <input type="number" id="fiscalYear" th:field="*{fiscalYear}" placeholder="FiscalYear"
+                           class="form-control"/>
+                </div>
+            </div>
+
+
+            <button
+                    type="submit" onclick="window.location.href = 'localhost:8080/user/srl/saveCalcul'";
+                    class="btn btn-primary btn-block">Adaugati in registru
+            </button>
+
+
+            <a th:href="@{'/user/srl/taxes/'+${srlEntity.loginId}}" class="btn btn-primary btn-block">Afisati registrul</a>
+
+            <form autocomplete="off" action="#" th:action="@{/srl}" th:object="${srlEntity}" method="post"
+                  class="form-signin" role="form">
+            </form>
+    </div>
+
+</div>
+</body>
+</html>
+
+

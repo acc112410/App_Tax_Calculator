@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid rgba(0, 0, 0, 0.96);
+        }
+    </style>
+    <meta charset="utf-8"/>
+    <title>Edit Product</title>
+
+</head>
+<table align="right">
+    <tr>
+        <th style="background-color:#9696cb" scope="row">Account Settings</th>
+    </tr>
+    <td>
+        <a th:href="@{'/user'}" class="btn btn-primary btn-block">User Details</a>
+        &nbsp;&nbsp;&nbsp;
+        <a th:href="@{'/logout'}">Logout</a>
+    </td>
+</table>
+<body>
+<div align="center">
+    <br/>
+    <form action="#" th:action="@{/login/save}" th:object="${loginEntity}"
+          method="post">
+        <h1 style="color:#000000;font-size:40px;">Edit income</h1>
+
+        <tr>
+            <th style="background-color:#00588CFF" scope="col">First Name</th>
+            <td><input type="text" th:field="*{firstName}"/>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td><input type="text" th:field="*{lastName}"/>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="text" th:field="*{email}"/>
+        </tr>
+        <tr>
+            <td>Type Of Bussines</td>
+            <td><input type="text" th:field="*{typeOfBusiness}"/>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" th:field="*{password}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Enabled</td>
+            <td><input type="text" th:field="*{enabled}"/>
+            </td>
+        </tr>
+
+        <td colspan="2">
+            <button type="submit" onclick="window.location.href = 'localhost:8080/login/save';">Save</button>
+        </td>
+        </tr>
+    </form>
+
+</div>
+</body>
+</html>

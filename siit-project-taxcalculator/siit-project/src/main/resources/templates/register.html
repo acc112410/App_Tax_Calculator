@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<style>
+    /* The container */
+    .container {
+        display: block;
+        position: relative;
+        padding-left: 120px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 12px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    /* Hide the browser's default radio button */
+    .container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    /* Create a custom radio button */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 12px;
+        width: 12px;
+        background-color: #eee;
+        border-radius: 50%;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the radio button is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the indicator (the dot/circle - hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the indicator (dot/circle) when checked */
+    .container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the indicator (dot/circle) */
+    .container .checkmark:after {
+        top: 4px;
+        left: 4px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: white;
+    }
+</style>
+<head>
+    <title>Registration Form</title>
+    <!-- link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" /-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color: #ededed;">
+<div style="background-color: #337ab7; height: 50px;"></div>
+<div class="container-fluid" style="margin-top: 30px;">
+
+    <div class="row col-lg-4 col-lg-offset-4" style="margin-top: 40px; background-color: #fff; padding: 20px; border: solid 1px #ddd;">
+        <form autocomplete="off" action="#" th:action="@{/register}" th:object="${loginEntity}" method="post" class="form-signin" role="form">
+            <h3 class="form-signin-heading">Registration Form</h3>
+            <div class="form-group">
+                <div class="">
+                    <input type="text" th:field="*{email}" placeholder="Email" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="">
+                    <input type="text" th:type="password" th:field="*{password}" placeholder="Password" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="">
+                    <input type="text" th:field="*{firstName}" placeholder="First Name" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="">
+                    <input type="text"  th:field="*{lastName}" placeholder="Last Name" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h5>Select Business Type: </h5>
+                <label class="container">   SRL
+                    <input type="radio"  th:field="*{typeOfBusiness}" th:value="SRL" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">   PFA
+                    <input type="radio" th:field="*{typeOfBusiness}" th:value="PFA" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">   PFI
+                    <input type="radio" th:field="*{typeOfBusiness}" th:value="PFI" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+
+
+            <div class="form-group">
+                <div class="">
+                    <button type="submit" class="btn btn-primary btn-block">Register User</button>
+                    <a href="/login" class="btn btn-primary btn-block">Login</a>
+                </div>
+            </div>
+            <span th:utext="${successMessage}"></span>
+            <div class="alert alert-success alert-dismissible col-sm-12"
+                 th:if="${(bindingResult != null && bindingResult.getAllErrors() != null)}">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">×</button>
+                <ul th:each="data : ${bindingResult.getAllErrors()}">
+                    <li th:text="${data.getDefaultMessage()}"></li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+    let count = 1;
+
+    function setColor(btn) {
+        let property = document.getElementById(btn.id);
+        if (count == 0) {
+            property.style.backgroundColor = "#FFFFFF"
+            count = 1;
+        }
+        else {
+            property.style.backgroundColor = "#0022ff"
+            count = 0;
+        }
+    }
+</script>

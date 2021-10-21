@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <style>
+        .button {
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .button:hover span {
+            padding-right: 25px;
+        }
+
+        .button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+
+        .button1 {
+            background-color: #4CAF50;
+            border-radius: 12px;
+        }
+
+        .button2 {
+            background-color: #008CBA;
+            border-radius: 12px;
+        }
+    </style>
+    <title>Edit User</title>
+</head>
+<body>
+<table align="right">
+    <tr>
+        <button class="button button2"><a th:href="@{'/logout'}">Logout</a></button>
+<!--        <a th:href="@{'/logout'}">Logout</a>-->
+    </tr>
+
+</table>
+<div align="center">
+    <h1>Edit User</h1>
+    <br/>
+
+    <form action="#" th:action="@{/user/update}" th:method="put" th:object="${login}"
+          method="post">
+
+        <table class=" table table-dark table-striped">
+
+
+            <tr style="display: none">
+                <td>ID:</td>
+                <td>
+                    <input type="hidden" th:field="*{id}" readonly="readonly"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Email:
+                    <input type="text" th:field="*{email}"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>First Name:
+                    <input type="text" th:field="*{firstName}"/>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>Last Name:
+                    <input type="text" th:field="*{lastName}"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Password:
+                    <input type="password" th:field="*{password}"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>TypeOfBusiness:
+                    <input type="text" th:field="*{typeOfBusiness}"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Enabled:
+                    <input type="text" th:field="*{enabled}" readonly="readonly"/>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td colspan="2">
+                    <button class="button button2" type="submit"><span>Save</span></button>
+                </td>
+                <td colspan="2">
+                    <button class="button button2" type="button" value="Go back!" onclick="history.back()">
+                        <span>Cancel</span>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+
+</div>
+</body>
+</html>

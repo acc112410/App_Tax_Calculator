@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table class=" table table-dark table-striped">
+    <thead>
+    <tr>
+        <th scope="col">id</th>
+        <th scope="col">cui</th>
+        <th scope="col">CAS</th>
+        <th scope="col">CASS</th>
+        <th scope="col">income_Taxes</th>
+        <th scope="col">income_Taxes_Per_Month</th>
+        <th scope="col">dividend_taxes_Per_Month</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each = "pfiEntity : ${pfiLista}">
+
+        <td th:text ="${pfiLista.id}"/>
+        <td th:text ="${pfiLista.cui}"/>
+        <td th:text ="${pfiLista.CAS}"/>
+        <td th:text ="${pfiLista.CASS}"/>
+        <td th:text ="${pfiLista.incomeTaxes}"/>
+        <td th:text ="${pfiLista.incomeTaxesPerMonth}"/>
+        <td th:text ="${pfiLista.dividendTaxesPerMonth}"/>
+        <td>
+            <a th:href="@{'/pfi/edit/' + ${pfiEntity.id}}">Edit</a>
+            &nbsp;&nbsp;&nbsp;
+            <a th:href="@{'/pfi/delete/' + ${pfiEntity.id}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+</body>
+</html>

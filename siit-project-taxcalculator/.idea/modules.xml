@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/siit-project-merged.iml" filepath="$PROJECT_DIR$/.idea/siit-project-merged.iml" />
+      <module fileurl="file://$PROJECT_DIR$/siit-project/taxcalculator.iml" filepath="$PROJECT_DIR$/siit-project/taxcalculator.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid rgba(0, 0, 0, 0.96);
+            padding: 5px;
+        }
+        .button {
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .button:hover span {
+            padding-right: 25px;
+        }
+
+        .button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+
+        .button1 {
+            background-color: #064367;
+            border-radius: 12px;
+        }
+
+        .button2 {
+            background-color: #008CBA;
+            border-radius: 12px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <table align="right">
+        <tr>
+            <th style="background-color:#9696cb" scope="row">Account Settings</th>
+        </tr>
+        <td th:object="${srlEntity}">
+            <a th:href="@{'/user/edit/' + ${srlEntity.id}}" class="btn btn-primary btn-block">User Details</a>
+            &nbsp;&nbsp;&nbsp;
+            <a th:href="@{'/logout'}">Logout</a>
+        </td>
+    </table>
+</head>
+<a th:href="@{'/index'}" class="button button1" style="vertical-align:middle"><span>Click to go to main page</span></a>
+<!--<div style="background-color: #337ab7; height: 25px;"></div>-->
+<body style="background-color: lightgrey">
+
+<table align="center" class="table table-bordered">
+    <thead>
+
+    <tr>
+        <th style="background-color:#00588CFF" scope="col">id</th>
+        <th style="background-color:#00588CFF" scope="col">fiscalYear</th>
+        <th style="background-color:#00588CFF" scope="col">income</th>
+        <th style="background-color:#00588CFF" scope="col">cui</th>
+        <th style="background-color:#00588CFF" scope="col">CAS</th>
+        <th style="background-color:#00588CFF" scope="col">CASS</th>
+        <th style="background-color:#00588CFF" scope="col">income_Taxes</th>
+        <th style="background-color:#00588CFF" scope="col">income_Taxes_Per_Month</th>
+        <th style="background-color:#00588CFF" scope="col">dividend_taxes_Per_Month</th>
+        <th style="background-color:#00588CFF" scope="col">taxes_Total</th>
+        <th style="background-color:#00588CFF" scope="col">Settings</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="srlEntity : ${srlLista}">
+        <td style="background-color: #e75f5f" th:text="${srlEntity.id}"/>
+        <td style="background-color: #e75f5f" th:text="${srlEntity.fiscalYear}"/>
+        <td style="background-color: aqua" th:text="${srlEntity.income}"/>
+        <td style="background-color: aqua" th:text="${srlEntity.cui}"/>
+        <td style="background-color: aqua" th:text="${srlEntity.CAS}"/>
+        <td style="background-color: aqua" th:text="${srlEntity.CASS}"/>
+        <td style="background-color: aqua" th:text="${srlEntity.incomeTaxes}"/>
+        <td style="background-color: aqua" th:text="${srlEntity.incomeTaxesPerMonth}"/>
+        <td style="background-color: aqua" th:text="${srlEntity.dividendTaxesPerMonth}"/>
+        <td style="background-color: aqua" th:text="${srlEntity.taxesTotal}"/>
+        <td>
+            <a th:href="@{'/user/srl/edit/' + ${srlEntity.id}}">Edit</a>
+            &nbsp;&nbsp;&nbsp;
+            <a th:href="@{'/user/srl/delete/' + ${srlEntity.id}}">x</a>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+<table  class="table table-bordered">
+    <thead>
+    <tr>
+        <th style="background-color:#ff0000" scope="row">An fiscal</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="srlEntity : ${srlLista2}">
+        <td  style="background-color: #e75f5f" th:text="${srlEntity.fiscalYear}"/>
+        <td>
+            <a th:href="@{'/user/srl/taxes/'+${srlEntity.loginId} +'/' +${srlEntity.fiscalYear}}" class="btn btn-primary btn-block">Select</a>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+</table>
+<table align="center" class="table table-bordered">
+    <tr>
+        <th style="background-color:#00588CFF" scope="row">Total taxes by fiscal year</th>
+        <td style="background-color: #42b9b9" th:text="${srlEntity.getTotalTaxesByFiscalYear()}"/>
+        <th style="background-color: #83b942">
+            <input type="button" id="btnShowMsg" value="Send Email" onclick="showMessage()" />
+        </th>
+    </tr>
+
+</table>
+</body>
+</html>
+
+
+
+
+

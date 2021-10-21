@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid rgba(0, 0, 0, 0.96);
+        }
+    </style>
+    <meta charset="utf-8"/>
+    <title>Edit Product</title>
+
+</head>
+<table align="right">
+    <tr>
+        <th style="background-color:#9696cb" scope="row">Account Settings</th>
+    </tr>
+    <td>
+        <a th:href="@{'/user'}" class="btn btn-primary btn-block">User Details</a>
+        &nbsp;&nbsp;&nbsp;
+        <a th:href="@{'/logout'}">Logout</a>
+    </td>
+</table>
+<body>
+<div align="center">
+    <br/>
+    <form action="#" th:action="@{/user/pfa/save}" th:object="${pfaEntity}"
+          method="post">
+        <h1 style="color:#000000;font-size:40px;">Edit income</h1>
+
+        <tr>
+            <td><input type="hidden" th:field="*{id}"/>
+        </tr>
+        <tr>
+            <td><input type="hidden" th:field="*{loginId}"/>
+        </tr>
+        <tr>
+            <td>Fiscal Year</td>
+            <td><input type="text" th:field="*{fiscalYear}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Income</td>
+            <td><input type="text" th:field="*{income}"/>
+            </td>
+        </tr>
+        <td colspan="2">
+            <button type="submit" onclick="window.location.href = 'localhost:8080/user/pfa/save';">Save</button>
+<!--            <a th:href="@{'/pfa/save/'+${pfaEntity.id}}">SaveBun</a>-->
+        </td>
+        </tr>
+    </form>
+</div>
+</body>
+</html>

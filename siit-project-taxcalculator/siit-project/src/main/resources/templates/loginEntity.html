@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login manager</title>
+</head>
+<body>
+<div align="center">
+    <h1>Product Manager</h1>h1>
+    <table border="1">
+        <tr>
+            <th>Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <!--            <th>Login id</th>-->
+            <!--            <th>Login id</th>-->
+            <!--            <th>Login id</th>-->
+        </tr>
+    </table>
+    <tbody>
+    <tr th:each="loginEntity : ${listLogins}">
+        <td th:text="${login.firstName}">First Name</td>
+        <td th:text="${login.lastName}">Last Name</td>
+        <td th:text="${login.email}">Email</td>
+        <td>
+            <a th:href="/@{'/edit/' + ${product.id}}">Edit</a>
+            &nbsp;&nbsp;&nbsp;
+            <a th:href="/@{'/pfa/delete/' + ${product.id}}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</div>
+</body>
+</html>
